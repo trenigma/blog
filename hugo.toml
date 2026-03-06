@@ -1,0 +1,31 @@
+baseURL = "https://blog.trenigma.dev/"
+languageCode = "en-us"
+title = "Tree's Blog"
+theme = "PaperMod"
+
+[params]
+  author = "Tree"
+  description = "SRE, DevOps, and climbing things"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  
+  [params.homeInfoParams]
+    Title = "Hey there 👋"
+    Content = "Welcome to Views From the Treehouse. Writing about SRE, DevOps, climbing, and building things in the PNW."
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/trenigma"
+
+[menu]
+  [[menu.main]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 1
+  [[menu.main]]
+    name = "BETA Weather"
+    url = "https://beta.trenigma.dev"
+    weight = 3
