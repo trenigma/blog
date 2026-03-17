@@ -1,6 +1,6 @@
 ---
 title: "BETA Part 1: Why I Built a Climbing Conditions Pipeline"
-date: 2026-03-15
+date: 2026-03-16
 author: Tree
 series: "BETA: Building a Climbing Conditions Pipeline"
 tags: ["beta", "python", "github-actions", "sre", "community"]
