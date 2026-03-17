@@ -1,0 +1,13 @@
+<!-- Grafana Faro RUM -->
+<script src="https://unpkg.com/@grafana/faro-web-sdk@^1.3.0/dist/bundle/faro-web-sdk.iife.js"></script>
+<script>
+  var faro = window.faro || {};
+  faro.api = window.faro.initializeFaro({
+    url: 'YOUR_COLLECTOR_URL',
+    app: {
+      name: 'trenigma-blog',
+      version: '1.0.0',
+      environment: 'production'
+    }
+  });
+</script>

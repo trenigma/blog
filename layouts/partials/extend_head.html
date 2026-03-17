@@ -1,0 +1,23 @@
+<!-- Grafana Faro RUM -->
+<script>
+(function () {
+  var webSdkScript = document.createElement("script");
+
+  // fetch the latest 2.x.x version of the Web-SDK from the CDN
+  webSdkScript.src =
+    "https://unpkg.com/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js";
+
+  webSdkScript.onload = () => {
+    window.GrafanaFaroWebSdk.initializeFaro({
+      url: "https://faro-collector-prod-us-west-0.grafana.net/collect/f3fdf797b4f35324bf57d9e89c80619f",
+      app: {
+        name: "trenigma-blog",
+        version: "1.0.0",
+        environment: "production",
+      },
+    });
+  };
+
+  document.head.appendChild(webSdkScript);
+})();
+</script>
