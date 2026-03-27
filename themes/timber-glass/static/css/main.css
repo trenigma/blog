@@ -468,9 +468,10 @@ blockquote p {
 }
 
 .author-cta-button:hover {
-    background: #B36A4D;
+    background: var(--glass-turquoise);  /* TURQUOISE ON HOVER! */
+    color: var(--text-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(198, 123, 92, 0.4);
+    box-shadow: 0 4px 12px rgba(94, 197, 193, 0.4);
     border: none;
 }
 
