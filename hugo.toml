@@ -13,7 +13,7 @@ theme = "timber-glass"
   heroTagline = "SRE/DevOps engineer building in the PNW. Writing about systems, side projects, and the occasional debugging adventure."
 
   # Navigation
-  showAboutPage = true
+  showAboutPage = false
 
   # Author CTA at end of posts
   showAuthorCTA = true

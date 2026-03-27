@@ -392,7 +392,7 @@ That's worth more than any certification or tutorial completion certificate.
 
 ## Resources
 
-**GitHub Repository**: [github.com/treehousepnw/ecs-todo-api-project](https://github.com/treehousepnw/ecs-todo-api-project) 
+[**GitHub Repository**](https://github.com/treehousepnw/ecs-todo-api-project) 
 **Live Demo**: Available upon request (may be scaled down to save costs)  
 **Tech Stack**: AWS (ECS, RDS, VPC, ALB, ECR), Terraform, Docker, Python/Flask, PostgreSQL
 

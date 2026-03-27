@@ -4,7 +4,7 @@ date: 2026-03-16
 draft: false
 tags: ["beta", "climbing", "side-projects", "infrastructure"]
 description: "I asked a question in an avalanche awareness class that wouldn't leave me alone: why doesn't something like NWAC forecasting exist for climbers?"
-hero_image: "/images/hero/me-submarine.png"
+hero_image: "/images/hero/me-submarine.jpg"
 hero_alt: "Climbing in the Cascades"
 ---
 

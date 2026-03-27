@@ -4,7 +4,7 @@ date: 2025-03-09
 draft: false
 tags: ["meta", "introduction"]
 description: "Analysis paralysis almost stopped me from starting this blog. Then I decided to just do it for me. Random, eclectic, sometimes silly. All of me."
-hero_image: "/images/hero/into-the-light.jpeg"
+hero_image: "/images/hero/into-the-light.jpg"
 hero_alt: "PNW forest view"
 ---
 

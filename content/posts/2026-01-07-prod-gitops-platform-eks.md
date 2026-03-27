@@ -8,7 +8,7 @@ hero_image: "/images/hero/k8s-box.jpg"
 hero_alt: "Kubernetes architecture diagram"
 ---
 
-After successfully building my [ECS + Terraform project](https://blog.trenigma.dev/prod-ecs-deploy-tf/), I knew I needed to fill a gap in my portfolio: **Kubernetes on AWS**. While ECS is great for straightforward containerized workloads, most enterprise environments I'm targeting use Kubernetes. I needed to prove I could work with both.
+After successfully building my [ECS + Terraform project](https://blog.trenigma.dev/posts/2025-10-27-aws-project-reboot-career/), I knew I needed to fill a gap in my portfolio: **Kubernetes on AWS**. While ECS is great for straightforward containerized workloads, most enterprise environments I'm targeting use Kubernetes. I needed to prove I could work with both.
 
 So I built a production-ready EKS cluster with a full GitOps workflow using ArgoCD, complete with RDS for persistence, multi-AZ networking, and automated deployments. Here's the story of how it came together - including the 8 debugging issues that taught me the most.
 
@@ -26,7 +26,7 @@ A production-grade Kubernetes platform on AWS with:
 
 The same Flask TODO API from my ECS project, but now running on Kubernetes with a proper GitOps deployment model.
 
-**Repository:** [github.com/treehousepnw/eks-todo-gitops](https://github.com/treehousepnw/eks-todo-gitops)
+[**Repository:**](https://github.com/treehousepnw/eks-todo-gitops)
 
 ## Architecture Overview
 
@@ -534,7 +534,7 @@ This project has a solid foundation, but there are several enhancements I want t
 
 ## Resources & Links
 
-**Project Repository:** [github.com/treehousepnw/eks-todo-gitops](https://github.com/treehousepnw/eks-todo-gitops)
+[**Project Repository:**](https://github.com/treehousepnw/eks-todo-gitops)
 
 **Key Documentation I Used:**
 
