@@ -1,0 +1,53 @@
+{{ define "main" }}
+<!-- CONFIG TEST: {{ .Site.Params.showAuthorCTA }} -->
+<!-- CONFIG TEST2: {{ .Site.Params.email }} -->
+
+<!-- Post Header -->
+<header class="post-header">
+    {{ if .Params.hero_image }}
+    <img src="{{ .Params.hero_image | relURL }}" 
+         alt="{{ .Params.hero_alt | default .Title }}" 
+         class="post-hero-image">
+    {{ end }}
+    
+    <div class="post-meta">
+        <span>{{ .Date.Format "January 2, 2006" }}</span>
+        <span>•</span>
+        <span>{{ .ReadingTime }} min read</span>
+        {{ if .Params.tags }}
+        {{ range first 1 .Params.tags }}
+        <span>•</span>
+        <span>{{ . }}</span>
+        {{ end }}
+        {{ end }}
+    </div>
+    
+    <h1 class="post-title">{{ .Title }}</h1>
+    
+    {{ if .Description }}
+    <p class="post-description">{{ .Description }}</p>
+    {{ end }}
+</header>
+
+<!-- Post Content -->
+<article class="post-content">
+    {{ .Content }}
+</article>
+
+
+<!-- Author CTA -->
+ <!-- DEBUG: showAuthorCTA = {{ .Site.Params.showAuthorCTA }} -->
+<!-- DEBUG: authorCTA title = {{ .Site.Params.authorCTA.title }} -->
+{{ if .Site.Params.showAuthorCTA }}
+<div class="author-cta">
+    <h3 class="author-cta-title">{{ if .Site.Params.authorCTA.title }}{{ .Site.Params.authorCTA.title }}{{ else }}Thanks for reading{{ end }}</h3>
+    <p class="author-cta-text">
+        {{ if .Site.Params.authorCTA.text }}{{ .Site.Params.authorCTA.text }}{{ else }}If you have questions or want to chat about this post, hit me up. I'm always happy to talk about infrastructure, climbing, or side projects.{{ end }}
+    </p>
+    <a href="{{ if .Site.Params.authorCTA.buttonLink }}{{ .Site.Params.authorCTA.buttonLink }}{{ else }}mailto:{{ .Site.Params.email }}{{ end }}" class="author-cta-button">
+        {{ if .Site.Params.authorCTA.buttonText }}{{ .Site.Params.authorCTA.buttonText }}{{ else }}Say Hi →{{ end }}
+    </a>
+</div>
+{{ end }}
+
+{{ end }}

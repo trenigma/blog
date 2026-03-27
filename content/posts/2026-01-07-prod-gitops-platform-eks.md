@@ -1,8 +1,11 @@
 ---
 title: "Building a Production-Ready GitOps Platform on AWS EKS"
-date: 2026-01-07T10:00:00-08:00
+date: 2026-01-07
 draft: false
-tags: ["gitops", "eks", "kubernetes", "aws"]
+tags: ["aws", "eks", "kubernetes", "argocd", "gitops", "portfolio"]
+description: "I needed to prove I could work with Kubernetes on AWS. So I built a production-ready EKS cluster with ArgoCD, RDS, multi-AZ networking, and 8 debugging issues that taught me the most."
+hero_image: "/images/hero/k8s-box.jpg"
+hero_alt: "Kubernetes architecture diagram"
 ---
 
 After successfully building my [ECS + Terraform project](https://blog.trenigma.dev/prod-ecs-deploy-tf/), I knew I needed to fill a gap in my portfolio: **Kubernetes on AWS**. While ECS is great for straightforward containerized workloads, most enterprise environments I'm targeting use Kubernetes. I needed to prove I could work with both.
@@ -540,10 +543,9 @@ This project has a solid foundation, but there are several enhancements I want t
 - [Helm Chart Template Guide](https://helm.sh/docs/chart_template_guide/)
 - [Kubernetes Security Best Practices](https://kubernetes.io/docs/concepts/security/)
 
-**Related Projects:**
+**Related Project:**
 
-- [My ECS + Terraform Project](https://blog.trenigma.dev/prod-ecs-deploy-tf/)
-- [Terraform State Analyzer Tool](https://github.com/treehousepnw/tf-state-analyzer)
+- [My ECS + Terraform Project](https://blog.trenigma.dev/posts/2025-10-27-aws-project-reboot-career/)
 
 ## Final Thoughts
 

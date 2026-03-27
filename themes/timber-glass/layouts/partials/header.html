@@ -1,0 +1,14 @@
+<header class="site-header">
+    <nav class="site-nav">
+        <a href="{{ "/" | relURL }}" class="site-title">{{ .Site.Title }}</a>
+        <ul class="site-nav-links">
+            <li><a href="{{ "/posts" | relURL }}">Posts</a></li>
+            {{ if .Site.Params.showAboutPage }}
+            <li><a href="{{ "/about" | relURL }}">About</a></li>
+            {{ end }}
+            {{ range .Site.Params.customNav }}
+            <li><a href="{{ .url }}">{{ .name }}</a></li>
+            {{ end }}
+        </ul>
+    </nav>
+</header>

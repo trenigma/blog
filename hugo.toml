@@ -1,31 +1,40 @@
 baseURL = "https://blog.trenigma.dev/"
 languageCode = "en-us"
-title = "Tree's Blog"
-theme = "PaperMod"
+title = "Views From the Treehouse"
+theme = "timber-glass"
 
 [params]
-  author = "Tree"
-  description = "SRE, DevOps, and climbing things"
-  ShowReadingTime = true
-  ShowShareButtons = false
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
-  ShowCodeCopyButtons = true
-  
-  [params.homeInfoParams]
-    Title = "Hey there 👋"
-    Content = "Welcome to Views From the Treehouse. Writing about SRE, DevOps, climbing, and building things in the PNW."
+  description = "Infrastructure, climbing, and learning in public"
+  author = "Derek Ogletree"
+  email = "tree7@protonmail.com"
 
-[[params.socialIcons]]
-  name = "github"
-  url = "https://github.com/trenigma"
+  # Hero section
+  heroTitle = "Infrastructure, climbing, and learning in public"
+  heroTagline = "SRE/DevOps engineer building in the PNW. Writing about systems, side projects, and the occasional debugging adventure."
 
-[menu]
-  [[menu.main]]
-    name = "Posts"
-    url = "/posts/"
-    weight = 1
-  [[menu.main]]
-    name = "BETA Weather"
-    url = "https://beta.trenigma.dev"
-    weight = 3
+  # Navigation
+  showAboutPage = true
+
+  # Author CTA at end of posts
+  showAuthorCTA = true
+
+  # Footer
+  footerText = 'Built by a climber, for readers. Powered by Hugo + GitHub Pages. <a href="/index.xml" style="color: var(--glass-turquoise); margin-left: var(--space-2);">RSS Feed</a>'
+
+  # Syntax highlighting
+  highlightStyle = "github-dark"
+
+# Custom nav links (must be after flat [params] keys due to TOML scoping rules)
+[[params.customNav]]
+  name = "About"
+  url = "https://beta.trenigma.dev/about.html"
+
+[[params.customNav]]
+  name = "BETA"
+  url = "https://beta.trenigma.dev"
+
+[params.authorCTA]
+  title = "Thanks for reading"
+  text = "If you have questions or want to chat about this post, hit me up. I'm always happy to talk about infrastructure, climbing, or side projects."
+  buttonText = "Say Hi →"
+  buttonLink = "mailto:tree7@protonmail.com"

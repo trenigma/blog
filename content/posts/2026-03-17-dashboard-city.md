@@ -2,8 +2,10 @@
 title: "Building a Personal NOC: I Needed to Know If Anyone Actually Uses My Shit"
 date: 2026-03-17
 draft: false
-tags: ["monitoring", "observability", "grafana", "faro", "synthetic-monitoring", "side-projects"]
-description: "How I set up production-grade monitoring for my three side projects (BETA, blog, littlelink) using Grafana Cloud's free tier, and why I now have a spare TV running my personal NOC dashboard 24/7."
+tags: ["monitoring", "observability", "grafana", "side-projects"]
+description: "How I set up production-grade monitoring for my three side projects using Grafana Cloud's free tier."
+hero_image: "/images/hero/beta-rum-dash.png"
+hero_alt: "Grafana dashboard"
 ---
 
 I built three sites. All on GitHub Pages. All costing $0 to run. And I had absolutely no idea if anyone was actually using them.

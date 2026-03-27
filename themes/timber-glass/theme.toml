@@ -1,0 +1,12 @@
+name = "Timber & Glass"
+license = "MIT"
+licenselink = "https://github.com/trenigma/timber-glass/LICENSE"
+description = "A warm, thoughtfully designed Hugo theme inspired by PNW timber-frame architecture. Natural materials aesthetic with generous whitespace."
+homepage = "https://github.com/trenigma/timber-glass"
+tags = ["blog", "minimal", "warm", "pnw", "responsive"]
+features = ["responsive", "hero-images", "syntax-highlighting", "clean-design"]
+min_version = "0.80.0"
+
+[author]
+  name = "Derek Ogletree (Tree)"
+  homepage = "https://blog.trenigma.dev"

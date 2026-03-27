@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Carabiner icon - simple and recognizable -->
+  
+  <!-- Main body of carabiner -->
+  <path d="M 30 15 Q 20 15 15 25 L 15 75 Q 20 85 30 85 L 50 85 Q 60 85 65 75 L 65 35 Q 60 25 50 25 L 35 25" 
+        fill="none" 
+        stroke="#5EC5C1" 
+        stroke-width="8" 
+        stroke-linecap="round"/>
+  
+  <!-- Gate (the opening part) -->
+  <line x1="35" y1="25" x2="50" y2="25" 
+        stroke="#2F5233" 
+        stroke-width="6" 
+        stroke-linecap="round"/>
+  
+  <!-- Gate hinge indicator -->
+  <circle cx="35" cy="25" r="3" fill="#2F5233"/>
+  
+  <!-- Lock indicator -->
+  <circle cx="50" cy="25" r="4" fill="#C67B5C"/>
+</svg>

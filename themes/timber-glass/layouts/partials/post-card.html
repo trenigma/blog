@@ -1,0 +1,31 @@
+<article class="post-card">
+    {{ if .Params.hero_image }}
+    <img src="{{ .Params.hero_image | relURL }}" alt="{{ .Params.hero_alt | default .Title }}" class="post-card-image">
+    {{ else }}
+    <div class="post-card-image"></div>
+    {{ end }}
+    
+    <div class="post-card-content">
+        <div class="post-card-meta">
+            <span>{{ .Date.Format "January 2, 2006" }}</span>
+            <span>•</span>
+            <span>{{ .ReadingTime }} min read</span>
+            {{ if .Params.tags }}
+            <span>•</span>
+            <span>{{ index .Params.tags 0 }}</span>
+            {{ end }}
+        </div>
+        
+        <h2 class="post-card-title">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </h2>
+        
+        <p class="post-card-excerpt">
+            {{ if .Description }}{{ .Description }}{{ else }}{{ .Summary }}{{ end }}
+        </p>
+        
+        <a href="{{ .Permalink }}" class="post-card-link">
+            Read more →
+        </a>
+    </div>
+</article>

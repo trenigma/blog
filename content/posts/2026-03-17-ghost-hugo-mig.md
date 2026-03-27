@@ -2,8 +2,10 @@
 title: "Ghost → Hugo: My EC2 Box Died and I'm Not Going Back"
 date: 2026-03-17
 draft: false
-tags: ["infrastructure", "hugo", "ghost", "migration", "aws", "github-pages", "cost-optimization"]
-description: "How my Ghost blog on EC2 became too broken to even SSH into, forcing me to migrate to Hugo via Apple Notes backups. Also: I'm never paying AWS $400/year for a blog again."
+tags: ["infrastructure", "hugo", "ghost", "migration", "aws", "github-pages"]
+description: "How my Ghost blog on EC2 became too broken to even SSH into, forcing me to migrate to Hugo via Apple Notes backups."
+hero_image: "/images/hero/misty-forest.jpg"
+hero_alt: "Misty PNW forest"
 ---
 
 So my Ghost blog died. Not like gracefully-sunsetting died. Like *can't SSH in anymore* died.
@@ -90,7 +92,7 @@ Did I migrate those? Nope.
 
 Did I figure out how to make Hugo look that pretty? Also nope.
 
-I was in MVP mode. Get the words onto the internet. Make it pretty later (spoiler: I still haven't).
+I was in MVP mode. Get the words onto the internet. Make it pretty later (spoiler: update March 2026 — I fixed that shit. Timber & Glass theme looking 🔥).
 
 Images can wait. Shipping > perfection.
 

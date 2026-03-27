@@ -1,0 +1,547 @@
+/* ============================================
+   TIMBER & GLASS BLOG THEME
+   Natural materials, light & shadow, PNW warmth
+   Built by a climber, for readers
+   ============================================ */
+
+/* ============================================
+   DESIGN SYSTEM - Variables
+   ============================================ */
+
+:root {
+    /* WOOD - Structure & Warmth */
+    --wood-lightest: #FAF8F5;
+    --wood-light: #F5F1EB;
+    --wood-medium: #E8DFD6;
+    --wood-dark: #C4B5A0;
+    
+    /* STONE - Foundation & Depth */
+    --stone-charcoal: #2D2420;
+    --stone-slate: #1E2A2D;
+    --stone-muted: #7A6F65;
+    
+    /* GLASS - Accents & Light */
+    --glass-turquoise: #5EC5C1;
+    --glass-turquoise-light: #7FE5E0;
+    --glass-terracotta: #C67B5C;
+    
+    /* SHADOWS - Depth */
+    --shadow-soft: rgba(45, 36, 32, 0.08);
+    --shadow-medium: rgba(45, 36, 32, 0.12);
+    --shadow-strong: rgba(45, 36, 32, 0.20);
+    
+    /* LIGHT - Transparency */
+    --overlay-light: rgba(250, 248, 245, 0.95);
+    
+    /* TYPOGRAPHY SCALE */
+    --text-xs: 0.80rem;
+    --text-sm: 0.889rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.266rem;
+    --text-2xl: 1.424rem;
+    --text-3xl: 1.602rem;
+    --text-4xl: 1.802rem;
+    --text-5xl: 2.027rem;
+    --text-6xl: 2.281rem;
+    
+    /* SPACING SCALE */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-8: 3rem;
+    --space-10: 4rem;
+    --space-12: 6rem;
+    
+    /* LAYOUT */
+    --content-width: 720px;
+    --content-width-wide: 1200px;
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+}
+
+/* ============================================
+   TYPOGRAPHY - Fonts
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: var(--stone-charcoal);
+    background: var(--wood-lightest);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   TYPOGRAPHY - Elements
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--stone-charcoal);
+}
+
+h1 { font-size: var(--text-6xl); margin-bottom: var(--space-5); }
+h2 { font-size: var(--text-4xl); margin-top: var(--space-10); margin-bottom: var(--space-5); padding-top: var(--space-5); border-top: 2px solid var(--wood-medium); }
+h3 { font-size: var(--text-3xl); margin-top: var(--space-8); margin-bottom: var(--space-4); }
+h4 { font-size: var(--text-2xl); margin-top: var(--space-6); margin-bottom: var(--space-3); }
+h5 { font-size: var(--text-xl); margin-top: var(--space-5); margin-bottom: var(--space-3); }
+h6 { font-size: var(--text-lg); margin-top: var(--space-5); margin-bottom: var(--space-3); }
+
+p {
+    margin-bottom: var(--space-5);
+    max-width: 65ch;
+    line-height: 1.8;
+}
+
+.lead {
+    font-size: var(--text-lg);
+    color: var(--stone-muted);
+    line-height: 1.8;
+}
+
+a {
+    color: var(--glass-turquoise);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+a:hover {
+    border-bottom-color: var(--glass-turquoise);
+}
+
+strong, b {
+    font-weight: 600;
+}
+
+em, i {
+    font-style: italic;
+}
+
+/* ============================================
+   CODE - Warm & Clear
+   ============================================ */
+
+code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+    background: var(--wood-medium);
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    color: var(--stone-charcoal);
+}
+
+pre {
+    margin: var(--space-6) 0;
+    background: var(--stone-slate);
+    padding: var(--space-6);
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+    box-shadow: 0 4px 16px var(--shadow-medium);
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    color: var(--wood-lightest);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+
+ul, ol {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-8);
+}
+
+li {
+    margin-bottom: var(--space-3);
+    line-height: 1.7;
+}
+
+/* ============================================
+   BLOCKQUOTES & PULL QUOTES
+   ============================================ */
+
+blockquote {
+    margin: var(--space-10) 0;
+    padding: var(--space-6) var(--space-8);
+    background: white;
+    border-left: 4px solid var(--glass-turquoise);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 16px var(--shadow-soft);
+}
+
+blockquote p {
+    font-family: 'Crimson Pro', serif;
+    font-size: var(--text-2xl);
+    line-height: 1.5;
+    color: var(--stone-charcoal);
+    font-style: italic;
+    margin: 0;
+}
+
+/* ============================================
+   NAVIGATION - Sticky Header
+   ============================================ */
+
+.site-header {
+    background: var(--overlay-light);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--wood-medium);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px var(--shadow-soft);
+}
+
+.site-nav {
+    max-width: var(--content-width-wide);
+    margin: 0 auto;
+    padding: var(--space-5) var(--space-6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--stone-charcoal);
+    text-decoration: none;
+    border: none;
+}
+
+.site-title:hover {
+    color: var(--glass-turquoise);
+    border: none;
+}
+
+.site-nav-links {
+    display: flex;
+    gap: var(--space-6);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.site-nav-links a {
+    color: var(--stone-muted);
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    transition: color 0.2s ease;
+}
+
+.site-nav-links a:hover {
+    color: var(--glass-turquoise);
+}
+
+/* ============================================
+   HOMEPAGE - Hero Section
+   ============================================ */
+
+.hero {
+    max-width: var(--content-width);
+    margin: var(--space-12) auto;
+    padding: 0 var(--space-6);
+}
+
+.hero-title {
+    font-size: var(--text-6xl);
+    margin-bottom: var(--space-4);
+    color: var(--stone-charcoal);
+}
+
+.hero-tagline {
+    font-size: var(--text-xl);
+    color: var(--stone-muted);
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+/* ============================================
+   HOMEPAGE - Posts Grid
+   ============================================ */
+
+.posts-grid {
+    max-width: var(--content-width-wide);
+    margin: var(--space-10) auto;
+    padding: 0 var(--space-6) var(--space-12);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-8);
+}
+
+.post-card {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow-soft);
+    transition: all 0.3s ease;
+    border: 1px solid var(--wood-medium);
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px var(--shadow-medium);
+}
+
+.post-card-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: var(--wood-light);
+}
+
+.post-card-content {
+    padding: var(--space-6);
+}
+
+.post-card-meta {
+    font-size: var(--text-sm);
+    color: var(--stone-muted);
+    margin-bottom: var(--space-3);
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.post-card-title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+    line-height: 1.3;
+}
+
+.post-card-title a {
+    color: var(--stone-charcoal);
+    text-decoration: none;
+    border: none;
+    transition: color 0.2s ease;
+}
+
+.post-card-title a:hover {
+    color: var(--glass-turquoise);
+}
+
+.post-card-excerpt {
+    color: var(--stone-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-5);
+}
+
+.post-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--glass-turquoise);
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    transition: gap 0.2s ease;
+}
+
+.post-card-link:hover {
+    gap: var(--space-3);
+}
+
+/* ============================================
+   POST PAGE - Header
+   ============================================ */
+
+.post-header {
+    max-width: var(--content-width-wide);
+    margin: var(--space-10) auto;
+    padding: 0 var(--space-6);
+}
+
+.post-hero-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 32px var(--shadow-medium);
+    margin-bottom: var(--space-8);
+}
+
+.post-meta {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    color: var(--stone-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-5);
+    flex-wrap: wrap;
+}
+
+.post-title {
+    font-size: var(--text-6xl);
+    line-height: 1.2;
+    margin-bottom: var(--space-5);
+    max-width: 900px;
+}
+
+.post-description {
+    font-size: var(--text-xl);
+    color: var(--stone-muted);
+    line-height: 1.6;
+    max-width: 800px;
+    margin-bottom: var(--space-8);
+}
+
+/* ============================================
+   POST PAGE - Content
+   ============================================ */
+
+.post-content {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-6) var(--space-12);
+}
+
+/* ============================================
+   AUTHOR CTA - Warm Invitation
+   ============================================ */
+
+.author-cta {
+    max-width: var(--content-width);
+    margin: var(--space-10) auto;
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 4px 16px var(--shadow-soft);
+    border: 1px solid var(--wood-medium);
+}
+
+.author-cta-title {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-4);
+}
+
+.author-cta-text {
+    color: var(--stone-muted);
+    margin-bottom: var(--space-5);
+    line-height: 1.7;
+}
+
+.author-cta-button {
+    display: inline-block;
+    padding: var(--space-3) var(--space-6);
+    background: var(--glass-terracotta);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(198, 123, 92, 0.3);
+    border: none;
+}
+
+.author-cta-button:hover {
+    background: #B36A4D;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(198, 123, 92, 0.4);
+    border: none;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.site-footer {
+    max-width: var(--content-width);
+    margin: var(--space-12) auto var(--space-6);
+    padding: var(--space-8) var(--space-6);
+    border-top: 1px solid var(--wood-medium);
+    text-align: center;
+    color: var(--stone-muted);
+    font-size: var(--text-sm);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    :root {
+        font-size: 15px;
+    }
+    
+    .site-nav {
+        flex-direction: column;
+        gap: var(--space-4);
+        padding: var(--space-4);
+    }
+    
+    .site-nav-links {
+        gap: var(--space-4);
+    }
+    
+    .hero {
+        margin: var(--space-8) auto;
+    }
+    
+    .posts-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+    
+    .post-hero-image {
+        height: 300px;
+    }
+    
+    .post-header, .post-content, .author-cta {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        font-size: 14px;
+    }
+    
+    .post-hero-image {
+        height: 240px;
+        border-radius: var(--border-radius);
+    }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.text-center { text-align: center; }
+.text-muted { color: var(--stone-muted); }
+.mb-0 { margin-bottom: 0; }
+.mt-0 { margin-top: 0; }

@@ -1,12 +1,12 @@
 ---
 title: "How I Self-Hosted a Ghost Blog Using Docker, Traefik & AWS"
-date: 2025-03-12T10:00:00-08:00
+date: 2025-03-12
 draft: false
-tags: ["ghost", "docker", "traefik", "aws"]
+tags: ["ghost", "docker", "traefik", "aws", "self-hosting"]
+description: "Because why not make your blog about blogging also be your DevOps playground? Ghost + Docker + Traefik + AWS for the full infrastructure learning experience."
+hero_image: "/images/hero/ghost-forest.jpg"
+hero_alt: "Docker containers"
 ---
-
-> *Because why not make your blog about blogging also be your DevOps playground?*
-
 
 ## Why I Did This
 

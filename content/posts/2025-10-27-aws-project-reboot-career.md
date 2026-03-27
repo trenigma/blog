@@ -1,8 +1,11 @@
 ---
 title: "How I Built a Production-Ready AWS Project to Reboot My DevOps Career"
-date: 2025-10-27T10:00:00-08:00
+date: 2025-10-27
 draft: false
-tags: ["aws", "terraform", "devops", "career"]
+tags: ["aws", "ecs", "terraform", "portfolio", "career"]
+description: "After a career gap, I needed more than an updated resume. I needed to prove I could still build production-grade infrastructure and solve real problems."
+hero_image: "/images/hero/aws-3d.jpg"
+hero_alt: "AWS infrastructure diagram"
 ---
 
 *After a career gap, I needed a portfolio project that would prove I could still build production-grade infrastructure. Here's the story of deploying a multi-AZ ECS application with Terraform - including the 7 real debugging issues I solved along the way.*
@@ -394,9 +397,9 @@ That's worth more than any certification or tutorial completion certificate.
 **Tech Stack**: AWS (ECS, RDS, VPC, ALB, ECR), Terraform, Docker, Python/Flask, PostgreSQL
 
 **Connect with me:**
-- Portfolio: [trenigma.dev](https://trenigma.dev)
-- LinkedIn: [linkedin.com/in/trenigma](https://linkedin.com/in/trenigma)
-- Email: derek.ogletree@gmail.com
+- [Portfolio](https://github.com/treehousepnw)
+- [LinkedIn](https://linkedin.com/in/trenigma)
+- [Email](derek.ogletree@gmail.com)
 
 ---
 

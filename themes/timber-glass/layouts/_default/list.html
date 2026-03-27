@@ -1,0 +1,18 @@
+{{ define "main" }}
+
+<!-- Hero Section -->
+<section class="hero">
+    <h1 class="hero-title">{{ if .Site.Params.heroTitle }}{{ .Site.Params.heroTitle }}{{ else }}{{ .Site.Title }}{{ end }}</h1>
+    <p class="hero-tagline">
+        {{ if .Site.Params.heroTagline }}{{ .Site.Params.heroTagline }}{{ else }}{{ .Site.Params.description }}{{ end }}
+    </p>
+</section>
+
+<!-- Posts Grid -->
+<div class="posts-grid">
+    {{ range .Pages }}
+        {{ partial "post-card.html" . }}
+    {{ end }}
+</div>
+
+{{ end }}

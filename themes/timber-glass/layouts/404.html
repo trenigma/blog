@@ -1,0 +1,24 @@
+{{ define "main" }}
+
+<section class="hero">
+    <h1 class="hero-title">Lost in the Woods? 🌲</h1>
+    <p class="hero-tagline" style="max-width: 600px; margin: 0 auto var(--space-8);">
+        This page doesn't exist. Maybe it fell off the approach trail?
+    </p>
+    
+    <div style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4);">
+        <a href="{{ "/" | relURL }}" style="display: block; padding: var(--space-4); background: var(--glass-turquoise); color: var(--text-dark); text-align: center; border-radius: var(--border-radius); font-weight: 600; text-decoration: none; border: none; transition: all 0.2s ease;">
+            🏠 Go Home
+        </a>
+        
+        <a href="{{ "/posts" | relURL }}" style="display: block; padding: var(--space-4); background: var(--forest-deep); color: var(--text-light); text-align: center; border-radius: var(--border-radius); font-weight: 600; text-decoration: none; border: none; transition: all 0.2s ease;">
+            📝 Browse Posts
+        </a>
+        
+        <a href="https://beta.trenigma.dev" style="display: block; padding: var(--space-4); background: var(--glass-terracotta); color: white; text-align: center; border-radius: var(--border-radius); font-weight: 600; text-decoration: none; border: none; transition: all 0.2s ease;">
+            🏔️ Check Crag Conditions
+        </a>
+    </div>
+</section>
+
+{{ end }}
