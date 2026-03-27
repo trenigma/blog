@@ -26,7 +26,7 @@ A production-grade Kubernetes platform on AWS with:
 
 The same Flask TODO API from my ECS project, but now running on Kubernetes with a proper GitOps deployment model.
 
-[**Repository:**](https://github.com/treehousepnw/eks-todo-gitops)
+[**Repository**](https://github.com/treehousepnw/eks-todo-gitops)
 
 ## Architecture Overview
 
@@ -534,7 +534,7 @@ This project has a solid foundation, but there are several enhancements I want t
 
 ## Resources & Links
 
-[**Project Repository:**](https://github.com/treehousepnw/eks-todo-gitops)
+[**Project Repository**](https://github.com/treehousepnw/eks-todo-gitops)
 
 **Key Documentation I Used:**
 

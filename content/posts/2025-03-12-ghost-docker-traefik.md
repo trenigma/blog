@@ -314,5 +314,5 @@ If you’re thinking about doing the same — **do it**. It’s an awesome way t
 
 📎 [Check out the GitHub Repo](https://github.com/treehousepnw/ghost-aws-project)
 
-📬 Got questions or want help? Shoot me an email at derek.ogletree@gmail.com. Thanks for reading! ☺️🍻
+📬 Got questions or want help? Shoot me an [email](mailto:tree7@protonmail.com). Thanks for reading! ☺️🍻
 
