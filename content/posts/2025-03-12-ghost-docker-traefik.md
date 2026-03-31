@@ -10,12 +10,9 @@ hero_alt: "Docker containers"
 
 ## Why I Did This
 
-Like many devs, I hit that moment where I wanted a personal blog — but I didn’t just want to spin up a platform. I wanted to **build the infrastructure** myself, to make it a fun project that was part learning, part feeding the enjoyment of building things. 
+I wanted a personal blog, but I also wanted to build the infrastructure myself. Actually build it, not just click "Deploy" somewhere.
 
-I chose [Ghost](https://ghost.org) for the blog engine (modern, fast, beautiful).  
-I chose Docker for containerization, [Traefik](https://traefik.io/) for reverse proxy & TLS, and AWS for the hosting playground.  
-
-Why? A mix of elements I was familiar with and are well supported, with some new services I was curious to understand more about. Creating that nice ratio of familiarity to growth that always feels good.
+Ghost for the blog engine. Docker for containers. [Traefik](https://traefik.io/) for reverse proxy and TLS. AWS for the box. Some of it I knew, some of it I was figuring out as I went. That’s the part that makes it fun.
 
 ---
 
@@ -269,7 +266,7 @@ rm lazydocker lazydocker.tar.gz
 
 • **Let’s Encrypt certificates**: initial cert failures were due to labeling issues in traefik configs.
 
-• **Mounting config files**: Ghost didn’t love misnamed config.production.json paths — fixed it by using correct mount points in Docker.
+• **Mounting config files**: Ghost didn’t love misnamed config.production.json paths. Fixed it by using correct mount points in Docker.
 
 • **Database struggles**: Ghost works better with MariaDB than mysql.
 
@@ -277,17 +274,15 @@ rm lazydocker lazydocker.tar.gz
 
 ## What I Learned
 
-• Traefik is **really powerful**, and its Docker provider makes things super dynamic.
-	
-• Ghost works beautifully in Docker once paths are configured right.
+Traefik’s Docker provider is genuinely powerful once you understand the routing model. Dynamic config means you can add services without restarting the proxy.
 
-• Lazydocker is the shit for dealing with containers on the box. Please go look it up if you've never heard of it.
-	
-• You don’t need 15 AWS services — an EC2 box + Docker + smart proxy can go a long way.
-	
-• Don’t skip `.env` and config validation — saved me hours of debugging.
+Ghost in Docker is fine as long as paths and config are correct. If they’re not, you’ll be debugging Ghost startup errors for a while.
 
-• Ghost works better with MariaDB than mysql. Also use a `.env` file for creds.
+Lazydocker is the shit for dealing with containers on the box. Go look it up if you’ve never heard of it.
+
+You don’t need 15 AWS services. An EC2 box, Docker, and a smart proxy goes a long way.
+
+Use a `.env` file for creds, and validate config before you spin things up. Ghost works better with MariaDB than MySQL, by the way.
 
 ---
 
@@ -305,10 +300,10 @@ rm lazydocker lazydocker.tar.gz
 
 ## Reflections
 
-Hosting my own Ghost blog wasn’t just about blogging — it was about owning the stack.
-Now every post I write lives on infrastructure I understand, manage, and trust.
+Hosting my own Ghost blog was about owning the stack.
+Every post I write lives on infrastructure I built, understand, and can debug when it breaks.
 
-If you’re thinking about doing the same — **do it**. It’s an awesome way to level-up your DevOps skills 💪🏽 
+If you’re thinking about doing the same, **do it**. It’s an awesome way to level-up your DevOps skills 💪🏽 
 
 ---
 

@@ -226,25 +226,15 @@ The images thing... yeah, I should probably make the blog prettier at some point
 
 ## What I Learned
 
-**1. Static sites don't die**
+No database means nothing to corrupt. No services to crash. No containers quietly eating RAM at 3am. Just files. Files are reliable.
 
-There's no database to corrupt. No services to crash. No containers to run out of memory. It's just files. Files are reliable.
+GitHub Pages being free is the obvious thing. What I didn't expect was how much I'd appreciate not thinking about it at all. SSL just works. CDN just works. Deploy is `git push`. Done.
 
-**2. GitHub Pages is stupid good**
+My fancy S3 backups were completely useless when the instance was too broken to SSH into. Apple Notes syncing to iCloud was not useless. Sometimes the dumb solution is the right one.
 
-Free hosting. Free SSL. Built-in CDN. `git push` deploys. Hard to beat.
+I shipped it in an afternoon with no images and minimal styling. It worked. Nobody cared. The words matter more than the layout. Ship it and fix it later is a real strategy.
 
-**3. Backups are only useful if you can access them**
-
-My fancy S3 database backups were useless when the instance was too broken to SSH into. You know what worked? Apple Notes syncing to iCloud.
-
-**4. MVP > perfection**
-
-I could've spent weeks making the Hugo blog pixel-perfect. Instead I shipped it in an afternoon with no images and minimal styling. It's fine. Nobody cares. The words matter more than the layout.
-
-**5. Cost optimization feels good**
-
-Saving $400/year is nice. But the real win? Not worrying about that goddamn t2 instance.
+Saving $400/year is nice. Not having that goddamn t2 instance in the back of my mind is better.
 
 ## What's Next
 
@@ -273,6 +263,6 @@ But the important part? **The blog exists. It's fast. It costs nothing. And I ca
 
 If you're running a blog on EC2 or a VPS, ask yourself: do you really need a database? Or do you just need Markdown files in Git?
 
-Because I promise you, your wallet will thank you. Your sleep schedule will thank you. And you'll spend more time writing and less time SSH-ing into servers at 2am because MySQL is eating all your RAM again.
+Your wallet will thank you. And you'll spend a lot less time SSH-ing into servers at 2am because MySQL decided to eat all the RAM again.
 
 Now go kill your AWS bill and buy some climbing gear instead.
