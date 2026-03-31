@@ -8,24 +8,11 @@ hero_image: "/images/hero/aws-3d.jpg"
 hero_alt: "AWS infrastructure diagram"
 ---
 
-*After a career gap, I needed a portfolio project that would prove I could still build production-grade infrastructure. Here's the story of deploying a multi-AZ ECS application with Terraform - including the 7 real debugging issues I solved along the way.*
+I'd been out of DevOps for a bit. Not like "took a sabbatical" out. Like actually out. And when I started looking at jobs again, the resume wasn't doing the work.
 
----
+So I built something. A multi-AZ ECS setup on AWS, Terraform all the way down. Something I could actually deploy, demo, and explain under pressure in an interview. Not "Hello World with extra steps" and not infrastructure that only works on my laptop. After some thinking I landed on a REST API on ECS Fargate. Simple enough that interviewers can focus on the infrastructure, not the app logic.
 
-After taking time away from DevOps work, I knew I needed more than just an updated resume to get back into the field. I needed to prove I could still build real infrastructure, solve real problems, and think like a production engineer.
-
-So I decided to go about building a project in my personal AWS account that I could use to help showcase DevOps work. I wanted to make something that I could use to emulate work I've done that someone else could actually use in production easily. After some mulling, I settled on an API using ECS managed with Terraform. 
-
-**What I needed:**
-- A project that demonstrated modern DevOps practices
-- Infrastructure I could explain in technical interviews
-- Real debugging I could discuss
-- Something I could deploy and iterate on
-
-**What I didn't want:**
-- "Hello World" with extra steps
-- Infrastructure that only works on my laptop
-- Something I couldn't explain under pressure
+Here's how it went, including 7 debugging issues that taught me more than any tutorial did.
 
 ## Architecture: Multi-AZ ECS with Terraform
 
@@ -71,44 +58,24 @@ Here's what the final architecture looks like:
 
 **Key decisions:**
 - **ECS Fargate over EC2**: No server management, pay per task
-- **Multi-AZ deployment**: Real high availability, not just buzzwords
+- **Multi-AZ deployment**: Actual high availability, not just a checkbox
 - **Terraform modules**: Reusable components for networking, compute, database
 - **Docker provider in Terraform**: Automated image builds (this was crucial)
 
-## The Results: Portfolio Gold
+## What Actually Works
 
-**What I can now demonstrate:**
--  Multi-AZ architecture design
--  Infrastructure as Code with Terraform
--  Container orchestration with ECS
--  Debugging production issues systematically
--  Cost-conscious infrastructure decisions
--  Security best practices (private subnets, encrypted storage, secrets management)
--  Monitoring and observability setup
+The thing deploys. One `terraform apply` and 10 minutes later you've got a live API. Multi-AZ, auto-scaling, CloudWatch metrics and logs, the whole thing. Response times are 200-300ms consistently. I can hand someone the repo and they can run it.
 
-**What I can discuss in interviews:**
-- Specific technical decisions and their trade-offs
-- Real debugging methodologies
-- Production vs development considerations
-- Cost optimization strategies
-- Security and compliance thinking
-
-**What's deployed and working:**
-- Live API: Fully functional with 200-300ms response times
-- GitHub repo: Complete with comprehensive documentation
-- CloudWatch: Real metrics and logs
-- Infrastructure: Reproducible with a single command
+That's what I wanted going in.
 
 ## Fun Stuff I Ran Into During The Build
 
 
 ### Issue #1: ECR authentication fails
 
-**The symptom:** ECS tasks failed to start with `ResourceInitializationError: unable to pull secrets or registry auth`.
+ECS tasks failing with `ResourceInitializationError: unable to pull secrets or registry auth`. The ECS task execution role needs explicit ECR permissions even though the docs say `AmazonECSTaskExecutionRolePolicy` covers it. The managed policy wasn't enough.
 
-**What I learned:** The ECS task execution role needs explicit ECR permissions, even though the documentation says `AmazonECSTaskExecutionRolePolicy` should cover it. Sometimes the managed policy isn't enough.
-
-**The fix:** Added explicit ECR permissions to the task execution role:
+Added explicit permissions to the task execution role:
 
 ```hcl
 resource "aws_iam_role_policy" "ecs_task_execution_ecr" {
@@ -134,11 +101,9 @@ resource "aws_iam_role_policy" "ecs_task_execution_ecr" {
 
 ### Issue #2: RDS password fun
 
-**The symptom:** Terraform apply failed with `The parameter MasterUserPassword is not a valid password. Only printable ASCII characters besides '/', '@', '"', ' ' may be used.`
+Terraform apply failed: `The parameter MasterUserPassword is not a valid password. Only printable ASCII characters besides '/', '@', '"', ' ' may be used.` RDS has password constraints that aren't obvious anywhere in the docs, and `random_password` generates whatever it wants by default.
 
-**What I learned:** RDS has specific password constraints that aren't immediately obvious. The `random_password` resource in Terraform generates all sorts of special characters by default.
-
-**The fix:** Constrained the character set:
+Constrained the character set:
 
 ```hcl
 resource "random_password" "db_password" {
@@ -151,11 +116,9 @@ resource "random_password" "db_password" {
 
 ### Issue #3: Errors resulting from container builds
 
-**The symptom:** Tasks starting but immediately exiting with `exit code 255` and `gunicorn: exec format error`.
+Tasks starting but immediately exiting: `exit code 255`, `gunicorn: exec format error`. Built the image on an M3 Mac. ARM64 binary, x86_64 Fargate. Classic.
 
-**What I learned:** Building Docker images on an M3 Mac creates ARM64 binaries. ECS Fargate defaults to x86_64 architecture. The mismatch causes exec format errors.
-
-**The fix:** Force x86_64 builds in multiple places:
+Force x86_64 builds in multiple places:
 
 ```dockerfile
 FROM --platform=linux/amd64 python:3.11-slim
@@ -176,11 +139,9 @@ runtime_platform {
 
 ### Issue #4: It ain't a real project unless DNS fails somewhere lol
 
-**The symptom:** Health checks passing, but API calls failing with `could not translate host name "xxx.rds.amazonaws.com:5432" to address`.
+Health checks passing, API calls failing: `could not translate host name "xxx.rds.amazonaws.com:5432" to address`. The RDS `endpoint` Terraform output includes the port. Pass that as the hostname and DNS breaks because it's trying to resolve `hostname:5432` as a single hostname.
 
-**What I learned:** The RDS `endpoint` output includes the port (`:5432`), but PostgreSQL's connection string expects hostname and port separately. When you pass `hostname:port` as the hostname, DNS resolution fails.
-
-**The fix:** Use `db_address` instead of `db_endpoint`:
+Use `db_address` instead of `db_endpoint`:
 
 ```hcl
 environment_vars = {
@@ -193,11 +154,9 @@ environment_vars = {
 
 ### Issue #5: Code oopsies
 
-**The symptom:** API returning `relation "todos" does not exist` even though init_db() was in the code.
+API returning `relation "todos" does not exist` even though `init_db()` was in the code. Code inside `if __name__ == '__main__'` doesn't run when Gunicorn imports the module. Only runs when you execute the script directly. Oops.
 
-**What I learned:** Code in Python's `if __name__ == '__main__'` block only executes when running the script directly. When Gunicorn imports the module, that block never runs.
-
-**The fix:** Move initialization to module load:
+Move initialization to module load:
 
 ```python
 app = Flask(__name__)
@@ -214,11 +173,9 @@ except Exception as e:
 
 ### Issue #6: Where's my Docker image?
 
-**The symptom:** Terraform created all infrastructure perfectly, but tasks wouldn't start because no Docker image existed in ECR.
+Terraform created all the infrastructure. Tasks wouldn't start. No Docker image in ECR. Right. I'd been so focused on the infra that I forgot to actually build and push the image. Terraform creates infrastructure, not applications.
 
-**What I forgot:** Terraform creates infrastructure, but building and pushing Docker images is application deployment - they're separate concerns.
-
-**The fix:** Integrated Docker provider directly into Terraform:
+Fixed by integrating the Docker provider directly into Terraform:
 
 ```hcl
 resource "docker_image" "app" {
@@ -244,11 +201,9 @@ resource "docker_registry_image" "app" {
 
 ### Issue #7: Target group health check timing
 
-**The symptom:** Tasks starting successfully but ALB returning 503 for several minutes.
+Tasks starting fine, ALB returning 503 for a few minutes every deploy. Default health check: 30s interval, 5 checks to go healthy. That's 2.5 minutes before a target is considered healthy even if the app is ready in 10 seconds.
 
-**What I learned:** Default health check intervals (30 seconds) combined with default healthy threshold (5 checks) means it takes 2.5 minutes for a target to become healthy, even if the app is ready in 10 seconds.
-
-**The optimization:** Tuned health check settings:
+Tuned health check settings:
 
 ```hcl
 health_check {
@@ -262,7 +217,7 @@ health_check {
 }
 ```
 
-**Result:** Healthy targets in 30 seconds instead of 150 seconds. Much better deployment experience.
+Healthy targets in 30 seconds instead of 150. Much better.
 
 ## Wins: What Works
 
@@ -322,41 +277,19 @@ One thing tutorials and blogs almost never talk about: **cost**. Here's the brea
 
 For a production environment with 2+ tasks and db.t4g.small, budget ~$250/month.
 
-## Some reminders when building your projects
+## Stuff Worth Knowing
 
-### 1. Tutorial shortfalls are too common
-Following tutorials teaches you syntax. Debugging production issues teaches you engineering.
+Tutorials teach you syntax. Debugging production issues teaches you engineering. Not a profound insight, but it's true every time.
 
-### 2. Documentation lies (sometimes)
-Managed policies don't always work. Default settings aren't always right. Always verify.
+Managed policies don't always work. Default settings aren't always right. The ARM vs x86 thing, the WSGI module import thing, the managed policy thing: the docs said it should work, it didn't. Verify everything.
 
-### 3. "Works on my machine" still gets you sometimes
-ARM vs x86, WSGI vs direct Python, development vs production - the details matter.
+The Docker-in-Terraform integration took extra time up front but saved it on every deploy after. If you're going to run the same thing 20 times, automate it on run two.
 
-### 4. Automation is always worth the time investment
-Spending extra time integrating Docker builds into Terraform saved hours on every iteration.
+## If You're Building Your Portfolio Too
 
-### 5. Real problems make better stories
-Every issue I debugged became an interview talking point. That's more valuable than smooth deployments.
+Build something you can actually deploy and demo, not a local-only thing. Document the stuff that breaks. Understand what it costs to run.
 
-## Key Takeaways: If You're Building Your Own Portfolio
-
-### Do:
--  Build something you can deploy and demo
--  Document every issue you solve
--  Use production patterns, not dev shortcuts
--  Calculate and understand costs
--  Make it reproducible with automation
-
-### Don't:
--  Just follow tutorials without understanding why
--  Build something you can't explain under pressure
--  Ignore cost implications
--  Skip documentation "for now"
--  Build locally-only infrastructure
-
-### Remember:
-The debugging is the learning. The mistakes are the stories. The struggle is what makes it authentic.
+That's it. The rest you figure out by doing it.
 
 ## Future enhancements
 
@@ -380,13 +313,9 @@ Potential improvements for production readiness:
 
 ## Final Thoughts
 
-After this project, I'm not just "current" with DevOps practices - I have concrete examples of modern infrastructure, real debugging wins, and production thinking.
+I went from "I've been out of the field for a bit" to "here's a live URL, here's the repo, and here are seven production issues I debugged along the way."
 
-When a recruiter asks "what have you been working on?", I can send them a live URL, a GitHub repo with comprehensive documentation, and explain seven different production issues I solved.
-
-That's worth more than any certification or tutorial completion certificate.
-
-**If you're rebooting your DevOps career, don't just update your resume. Build something real. Debug something hard. Document it well.**
+That conversation is a lot better than handing someone a resume.
 
 ---
 
@@ -405,4 +334,3 @@ That's worth more than any certification or tutorial completion certificate.
 
 *Built this project? Have questions about the debugging process? Found a better approach? I'd love to hear from you. Shoot me an email or reach out on LinkedIn.*
 
-**Tags**: #DevOps #AWS #Terraform #ECS #Docker #Infrastructure #Career #SRE #CloudEngineering

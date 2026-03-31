@@ -8,9 +8,9 @@ hero_image: "/images/hero/k8s-box.jpg"
 hero_alt: "Kubernetes architecture diagram"
 ---
 
-After successfully building my [ECS + Terraform project](https://blog.trenigma.dev/posts/2025-10-27-aws-project-reboot-career/), I knew I needed to fill a gap in my portfolio: **Kubernetes on AWS**. While ECS is great for straightforward containerized workloads, most enterprise environments I'm targeting use Kubernetes. I needed to prove I could work with both.
+The [ECS project](https://blog.trenigma.dev/posts/2025-10-27-aws-project-reboot-career/) was done. But every job I was looking at wanted Kubernetes, and I hadn't touched EKS in a while. So I needed to go build a thing.
 
-So I built a production-ready EKS cluster with a full GitOps workflow using ArgoCD, complete with RDS for persistence, multi-AZ networking, and automated deployments. Here's the story of how it came together - including the 8 debugging issues that taught me the most.
+Full GitOps on AWS EKS: ArgoCD watching the repo, RDS for persistence, multi-AZ networking. Here's how it went, including 8 debugging issues that each cost me a different amount of sanity.
 
 ## What I Built
 
@@ -194,11 +194,7 @@ This is where the real learning happened. Here are the issues I hit and how I so
 
 ### Issue #1: Port Conflict with `kubectl port-forward`
 
-**The Problem:** Running `kubectl port-forward svc/argocd-server 8080:443` failed with "address already in use."
-
-**The Root Cause:** I had left another port-forward running in a different terminal session.
-
-**The Fix:**
+Running `kubectl port-forward svc/argocd-server 8080:443` threw "address already in use." I had a port-forward open in another terminal I'd forgotten about.
 
 ```bash
 # Find what's using port 8080
@@ -211,17 +207,13 @@ kill -9 <PID>
 kubectl port-forward svc/argocd-server 9090:443 -n argocd
 ```
 
-**Lesson:** Always clean up your port-forwards, or use unique ports for each service.
+Clean up your port-forwards when you're done, or just use different port numbers for each service.
 
 ---
 
 ### Issue #2: Docker Image Not Updating
 
-**The Problem:** I made changes to the Python code, rebuilt the Docker image, but pods were still running the old version.
-
-**The Root Cause:** I was using the `:latest` tag, and Kubernetes was pulling the cached image because the tag hadn't changed.
-
-**The Fix:**
+Made changes, rebuilt the image, pods were still on the old version. The `:latest` tag was the problem. Kubernetes cached it because the tag didn't change.
 
 ```bash
 # Use unique tags with version numbers
@@ -238,17 +230,13 @@ git commit -m "Update to v1.0.1"
 git push
 ```
 
-**Lesson:** Never use `:latest` in production. Always use semantic versioning for container images.
+Don't use `:latest` in production. Tag your images.
 
 ---
 
 ### Issue #3: Pods Couldn't Reach RDS Database
 
-**The Problem:** Pods were crashing with "could not connect to server" errors.
-
-**The Root Cause:** The RDS security group wasn't allowing traffic from the EKS node security group.
-
-**The Fix:**
+Pods crashing with "could not connect to server." The RDS security group wasn't allowing traffic from the EKS nodes.
 
 ```hcl
 # In terraform/modules/rds/main.tf
@@ -262,17 +250,13 @@ resource "aws_security_group_rule" "rds_from_eks" {
 }
 ```
 
-**Lesson:** Always verify security group rules allow the traffic you expect. Drawing a mental map of "source → destination" helps.
+Draw a mental map of source → destination before you apply. Security groups will get you every time.
 
 ---
 
 ### Issue #4: Missing Environment Variables in Pods
 
-**The Problem:** Application logs showed database connection variables weren't set.
-
-**The Root Cause:** The Helm chart deployment template didn't have an `envFrom` section to load the secret.
-
-**The Fix:**
+Application logs showed the database connection variables weren't set. The Helm chart deployment template was missing the `envFrom` section to load the secret.
 
 ```yaml
 # helm/todo-api/templates/deployment.yaml
@@ -292,17 +276,15 @@ spec:
       value: "{{ .Values.database.name }}"
 ```
 
-**Lesson:** Kubernetes won't inject secrets automatically - you have to explicitly reference them in your deployment spec.
+Kubernetes won't inject secrets on its own. You have to reference them explicitly in the deployment spec.
 
 ---
 
 ### Issue #5: THE INFAMOUS PASSWORD SPECIAL CHARACTERS BUG 🐛
 
-**The Problem:** Database connection still failing even after fixing security groups and environment variables. The error was cryptic: "password authentication failed."
+Still failing after fixing security groups and env vars. "password authentication failed." I'd been staring at this for an hour.
 
-**The Root Cause:** I was using a password with special characters (like `{`, `}`, and `$`) and passing it directly in the connection string. The curly braces were being interpreted as template variables!
-
-**The Smoking Gun:**
+Turned out the password had `{`, `}`, and `$` in it. Those curly braces were being interpreted as template variables. Two hours I will never get back.
 
 ```bash
 # This is what I saw in the logs:
@@ -312,7 +294,7 @@ FATAL:  password authentication failed for user "todoadmin"
 # But it was being interpreted as a template variable!
 ```
 
-**The Real Fix:**
+Fix:
 
 ```yaml
 # Create the secret properly in Kubernetes
@@ -342,19 +324,15 @@ db_name = os.getenv('DB_NAME')
 db_url = f"postgresql://{db_user}:{db_password}@{db_host}:5432/{db_name}"
 ```
 
-**Lesson:** ALWAYS use simple passwords in development, or properly escape special characters. Or better yet, use AWS Secrets Manager with External Secrets Operator (future enhancement!).
+Use simple passwords in dev, or quote them properly. Better yet, use Secrets Manager (that's in the "What's Next" section).
 
-This bug cost me 2 hours of debugging. When you see "authentication failed," always check for special characters in passwords being passed through multiple layers of templating!
+When you see "authentication failed" and everything else looks right, check for special characters getting mangled through multiple layers of templating.
 
 ---
 
 ### Issue #6: ArgoCD Not Syncing Changes
 
-**The Problem:** I pushed changes to GitHub, but ArgoCD wasn't picking them up.
-
-**The Root Cause:** Auto-sync was enabled but I hadn't committed the changes properly - the files were staged but not pushed.
-
-**The Fix:**
+Pushed changes, ArgoCD wasn't picking them up. Auto-sync was on. The files were staged but not pushed. Did a `git add`, forgot the `git commit` and `git push`.
 
 ```bash
 # Always verify your changes are actually in GitHub
@@ -368,17 +346,13 @@ curl https://raw.githubusercontent.com/treehousepnw/eks-todo-gitops/main/helm/to
 kubectl patch application todo-api -n argocd --type merge -p '{"operation": {"initiatedBy": {"username": "admin"}, "sync": {"revision": "HEAD"}}}'
 ```
 
-**Lesson:** Git workflow discipline matters. Always verify your changes are actually pushed to remote before expecting ArgoCD to sync.
+Always verify changes are actually in the remote before wondering why ArgoCD isn't syncing.
 
 ---
 
 ### Issue #7: Health Check Failing After Deployment
 
-**The Problem:** Pods were running but the `/health` endpoint was returning 503.
-
-**The Root Cause:** The database connection pool wasn't initialized properly on startup.
-
-**The Fix:**
+Pods running but `/health` returning 503. The database connection pool wasn't initializing on startup.
 
 ```python
 # app.py - add proper initialization
@@ -405,19 +379,17 @@ def health():
         }), 503
 ```
 
-**Lesson:** Health checks should actually verify your dependencies are working, not just return a static response.
+Health checks should actually check something. Returning a static 200 is lying to yourself.
 
 ---
 
 ### Issue #8: LoadBalancer Taking Forever to Provision
 
-**The Problem:** After deploying the service, the LoadBalancer was stuck in "Pending" state for 10+ minutes.
+After deploying the service, LoadBalancer stuck in "Pending" for 10+ minutes. AWS was provisioning a Classic Load Balancer, which just takes a while. Also didn't have the AWS Load Balancer Controller installed.
 
-**The Root Cause:** AWS was provisioning a Classic Load Balancer, which takes longer than expected. Also, I didn't have the AWS Load Balancer Controller installed.
+The "fix" for now: wait. Classic LB provisioning takes 5-10 minutes. Go make coffee.
 
-**The Fix (for now):** Just wait. Classic LB provisioning takes 5-10 minutes. Patience!
-
-**The Better Fix (future enhancement):** Install AWS Load Balancer Controller to use ALBs instead:
+Better long-term: install the AWS Load Balancer Controller and use ALBs via Ingress instead:
 
 ```bash
 # This will be in my "What's Next" section
@@ -429,7 +401,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
 
 Then use Ingress resources instead of LoadBalancer services for faster, more cost-effective load balancing.
 
-**Lesson:** Classic Load Balancers are slow to provision. ALBs via Ingress are the modern way to expose services in EKS.
+Classic LBs are slow. ALBs via Ingress are the move for EKS.
 
 ---
 
@@ -462,27 +434,16 @@ Success! A working Kubernetes application deployed via GitOps.
 
 ## What I Learned
 
-### Technical Insights
+GitOps actually feels as good as everyone says. Push to main, watch ArgoCD sync, no SSH, no manual `kubectl apply`. That part clicked fast.
 
-1. **GitOps is a game-changer** - The declarative approach where Git is the single source of truth makes deployments so much cleaner than manual processes.
-    
-2. **Helm is worth the learning curve** - Packaging Kubernetes manifests as Helm charts makes them reusable and much easier to manage than raw YAML.
-    
-3. **Security groups are still the #1 gotcha** - Whether it's ECS or EKS, getting the networking and security group rules right is always where you'll spend debugging time.
-    
-4. **Special characters in passwords will burn you** - This is a universal truth across all infrastructure and application layers.
-    
-5. **Managed services save time** - Using EKS managed node groups and RDS means I spent time solving application problems, not infrastructure plumbing.
-    
+Helm took a bit longer but it's worth it. Raw YAML across a whole cluster is a mess. Charts make it manageable and reusable.
 
-### Career Lessons
+Security groups will get you on EKS the same way they get you on ECS. Always draw out source → destination before you apply.
 
-1. **Build in public** - Documenting the debugging process shows employers you can troubleshoot real problems, not just follow tutorials.
-    
-2. **The second project builds on the first** - Having the ECS project as reference made this EKS build faster. Each project compounds your skills.
-    
-3. **Production-ready beats perfect** - I shipped this with Classic Load Balancers and manual RDS setup. The "What's Next" section shows growth mindset, not lack of skills.
-    
+That password bug was genuinely embarrassing but I probably learned more about Kubernetes secrets and templating in those two hours than in any tutorial.
+
+Doing this after the ECS project made it way faster. Having a reference for "how do I structure Terraform modules" or "what does a working security group look like" saves a lot of time. Build the first thing, then build the second thing. They compound.
+
 
 ## Cost Breakdown
 
@@ -549,13 +510,11 @@ This project has a solid foundation, but there are several enhancements I want t
 
 ## Final Thoughts
 
-Building this EKS platform taught me that Kubernetes isn't actually that scary once you understand the primitives. The ecosystem is rich with tools (ArgoCD, Helm, Prometheus) that solve real problems, and the GitOps workflow feels like the right way to manage infrastructure.
+Kubernetes is actually fine once you get past the initial "what the hell is any of this" phase. The primitives make sense. ArgoCD, Helm, Prometheus: they all solve real problems instead of just creating new ones.
 
-The debugging process - especially that password special characters bug - reminded me that the most valuable learning happens when things break. Those 2 hours of frustration taught me more about Kubernetes secrets, templating, and connection string handling than any tutorial could.
+That password bug was infuriating. Two hours of "authentication failed" when everything else looked correct. But I know way more about Kubernetes secrets and templating now than I would have from just reading docs.
 
-For anyone building their DevOps portfolio: start with something simpler (like my ECS project), then level up to Kubernetes. The foundation you build in the first project makes the second one possible.
-
-Now I have both ECS and EKS experience in my portfolio, along with two production-ready projects to discuss in interviews. That's the goal.
+If I was doing it again: ECS first, then EKS. The first project gives you a mental model. The second one builds on it. Starting cold with EKS would have taken twice as long.
 
 ---
 
