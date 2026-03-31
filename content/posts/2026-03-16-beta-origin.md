@@ -10,7 +10,7 @@ hero_alt: "Climbing in the Cascades"
 
 Okay so lemme tell you how this started.
 
-I was sitting in an NWAC avalanche awareness class — one my climbing community Rising Roots organized at The Mountaineers in Seattle — and I asked out loud: "how come something like NWAC avalanche forecasting doesn't exist for climbers? Some kind of tool that helps us decide when conditions are solid without having to cross-reference a shitload of resources?"
+I was sitting in an NWAC avalanche awareness class (one my climbing community Rising Roots organized at The Mountaineers in Seattle) and I asked out loud: "how come something like NWAC avalanche forecasting doesn't exist for climbers? Some kind of tool that helps us decide when conditions are solid without having to cross-reference a shitload of resources?"
 
 I had a quick conversation with a PhD student about weather data infrastructure, and then I sat with that question a little harder. *WTF — why doesn't this exist?*
 
@@ -38,7 +38,7 @@ Total infrastructure cost: $0. Things that can break at 2am: basically zero. For
 
 ## Four data sources, each with their own story
 
-**Open-Meteo** was the obvious first call — free, no API key needed, covers global coordinates. One API call per crag gets me precip history, humidity, temp, wind, and 48h forecast. Easy.
+**Open-Meteo** was the obvious first call. Free, no API key needed, covers global coordinates. One API call per crag gets me precip history, humidity, temp, wind, and 48h forecast. Easy.
 
 **USGS stream gauges** felt like a clutch differentiator for a couple of the crags. The Skykomish River gauge at Gold Bar (`12134500`) tells me how saturated the approach terrain is near Index and Miller River. River running at 7,000+ CFS? The boulders are either underwater or the approaches are a muddy mess.
 
@@ -80,9 +80,9 @@ The tech is the easy part honestly.
 
 BETA exists because of a community conversation. It was designed around how climbers actually think. And it launched to people who immediately gave useful feedback — someone spotted on day two that the 48h forecast was influencing signals in a way that suggested trip planning use cases, not just "should I go right now." Feature direction I hadn't fully articulated yet, surfaced immediately by a user.
 
-I'm also a co-facilitator of Rising Roots PNW — a community creating welcoming spaces for BIPOC climbers in the Pacific Northwest. When I thought about who this tool was for, I thought about that community first. Good beta means access. BETA puts it in one place, free, for anyone.
+I'm also a co-facilitator of Rising Roots PNW, a community creating welcoming spaces for BIPOC climbers in the Pacific Northwest. When I thought about who this tool was for, I thought about that community first. Good beta means access. BETA puts it in one place, free, for anyone.
 
-Built by a climber of color, for climbers of color — and everyone out there.
+Built by a climber of color, for climbers of color. And everyone out there.
 
 ---
 

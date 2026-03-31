@@ -95,7 +95,7 @@ Now I've got:
 
 Total setup time: 5 minutes.
 
-And here's the thing: **GitHub Pages uptime is stupidly good**. All three sites? 100% uptime. Always green. North Virginia responds in ~24ms, Oregon in ~50ms, London in ~100ms.
+**GitHub Pages uptime is stupidly good.** All three sites? 100% uptime. Always green. North Virginia responds in ~24ms, Oregon in ~50ms, London in ~100ms.
 
 It's almost boring. But boring is good.
 
@@ -269,25 +269,13 @@ Compare that to Datadog at $15/host or New Relic at $99/month.
 
 ## What I Actually Learned
 
-**1. (Some) Free tiers are underrated**
+Grafana Cloud's free tier is genuinely good. Not "free but useless." Actually useful. I kept expecting to hit a limit and I haven't.
 
-Grafana Cloud's free tier is genuinely good. Not "free but useless." Actually good.
+Once I could see page views I started caring more about writing. Once I could see click counts on littlelink I actually updated it. Metrics create accountability even when it's just you holding yourself to it.
 
-**2. Monitoring changes behavior**
+GitHub Pages is fast. Like, really fast. 100% uptime, sub-100ms response times globally. For free. Wild.
 
-Once I could see page views, I started caring more about writing. Seeing the click counts on littlelink made me actually update it.
-
-Metrics create accountability. Even if it's just to yourself.
-
-**3. GitHub Pages is fast**
-
-Like, really fast. 100% uptime, sub-100ms response times globally. For free. Wild.
-
-**4. People actually use my stuff**
-
-BETA is getting page views which feels so good. Blog posts get read. People click through from littlelink.
-
-It's not huge numbers but they're real people. And knowing that feels good.
+BETA is getting page views. Blog posts get read. People click through from littlelink. Not huge numbers but they're real people, and knowing that feels good.
 
 ## Setting This Up Yourself
 
