@@ -5,9 +5,17 @@
 <!-- Post Header -->
 <header class="post-header">
     {{ if .Params.hero_image }}
-    <img src="{{ .Params.hero_image | relURL }}" 
-         alt="{{ .Params.hero_alt | default .Title }}" 
-         class="post-hero-image">
+    {{ $imgSrc := .Params.hero_image | relURL }}
+    {{ $webpSrc := replaceRE `\.(jpg|jpeg|png|gif)$` ".webp" $imgSrc }}
+    <picture>
+        <source srcset="{{ $webpSrc }}" type="image/webp">
+        <img src="{{ $imgSrc }}"
+             alt="{{ .Params.hero_alt | default .Title }}"
+             class="post-hero-image"
+             width="{{ .Params.hero_width | default 1600 }}"
+             height="{{ .Params.hero_height | default 900 }}"
+             fetchpriority="high">
+    </picture>
     {{ end }}
     
     <div class="post-meta">

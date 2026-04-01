@@ -1,6 +1,16 @@
 <article class="post-card">
     {{ if .Params.hero_image }}
-    <img src="{{ .Params.hero_image | relURL }}" alt="{{ .Params.hero_alt | default .Title }}" class="post-card-image">
+    {{ $imgSrc := .Params.hero_image | relURL }}
+    {{ $webpSrc := replaceRE `\.(jpg|jpeg|png|gif)$` ".webp" $imgSrc }}
+    <picture>
+        <source srcset="{{ $webpSrc }}" type="image/webp">
+        <img src="{{ $imgSrc }}"
+             alt="{{ .Params.hero_alt | default .Title }}"
+             class="post-card-image"
+             width="{{ .Params.hero_width | default 1600 }}"
+             height="{{ .Params.hero_height | default 900 }}"
+             loading="lazy">
+    </picture>
     {{ else }}
     <div class="post-card-image"></div>
     {{ end }}
